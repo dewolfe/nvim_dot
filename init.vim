@@ -1,12 +1,9 @@
 call plug#begin()
 " Neovim-only, use in true color terminal
 Plug 'ap/vim-css-color'
-"Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
-"Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'mileszs/ack.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-fugitive'
@@ -15,7 +12,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'janko-m/vim-test'
 Plug 'danchoi/ri.vim'
-"Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
@@ -23,9 +19,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-"Plug 'fatih/vim-go'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'fishbullet/deoplete-ruby'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-unimpaired'
@@ -39,22 +32,16 @@ Plug 'vim-airline/vim-airline-themes'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'w0rp/ale'
-"Plug 'neomake/neomake'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
 Plug 'sgur/vim-editorconfig'
 Plug 'pangloss/vim-javascript'
-"Plug 'digitaltoad/vim-pug'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
-
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
-"Plug 'mbbill/undotree'
-"Plug 'posva/vim-vue'
 call plug#end()
 filetype plugin indent on
-"let g:deoplete#enable_at_startup = 1
 
 " LanguageClient Settings
 let g:LanguageClient_autoStop = 0
