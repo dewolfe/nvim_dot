@@ -1,12 +1,12 @@
 call plug#begin()
 " Neovim-only, use in true color terminal
+Plug 'flazz/vim-colorschemes'
 Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Chiel92/vim-autoformat'
-Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
@@ -20,12 +20,15 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 Plug 'vim-ruby/vim-ruby'
+
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -97,14 +100,12 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 set cursorline
 set number
 
-"neomake
 
-"call neomake#configure#automake('nw', 750)
 "Visuals
 syntax on
 set termguicolors
 set background=dark
-colorscheme hybrid_material
+colorscheme focuspoint "hybrid_material
 hi VertSplit ctermbg=235 ctermfg=235
 set go-=L " remove left scrollbar
 set go-=r " remove right scrollbar
@@ -119,13 +120,9 @@ let g:ale_sign_warning = '⚠'
 " Visuals: airline
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-
 let g:airline_powerline_fonts = 1 " https://github.com/bling/vim-airline/wiki/FAQ
 let g:airline#extensions#whitespace#enabled = 0 " too obtrusive
 let g:airline_theme = "tender"
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-"let g:airline#extensions#tabline#buffer_nr_format = "%s:"
 let g:airline#extensions#hunks#enabled = 0 " no room :(
 let g:airline_section_y = '' " no room :'(
 let g:airline#extensions#syntastic#enabled = 1
@@ -154,24 +151,14 @@ iabbrev authoirty authority
 iabbrev Authoirty Authority
 iabbrev distrcit district
 iabbrev distrcits districts
-" CtrlP
-"map <leader>t <C-p>
-"map <leader>y :CtrlPBuffer<cr>
-"let g:ctrlp_show_hidden=1
-"let g:ctrlp_working_path_mode=0
-"let g:ctrlp_max_height=30
-"let g:loaded_python_provider=1
+
 let g:loaded_python3_provider=1
-"let g:deoplete#enable_at_startup = 1
-" CtrlP -> override <C-o> to provide options for how to open files
-"let g:ctrlp_arg_map = 1
 let NERDTreeQuitOnOpen=1
-"let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 nnoremap <C-p> :Files<Cr>
 
 " CtrlP -> directories to ignore when fuzzy finding
-let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+"let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " Ack (uses Ag behind the scenes)
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -186,3 +173,6 @@ map <leader>af :Autoformat<CR>
 sunmap w
 sunmap b
 sunmap e
+noremap  <silent> <C-S>              :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <C-O>:update<CR>
