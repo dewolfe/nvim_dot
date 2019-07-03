@@ -16,11 +16,11 @@ Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+			\ 'branch': 'next',
+			\ 'do': 'bash install.sh',
+			\ }
 Plug 'vim-ruby/vim-ruby'
-
+Plug 'ianks/vim-tsx'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
@@ -29,6 +29,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 
+Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -38,19 +39,21 @@ Plug 'w0rp/ale'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
 Plug 'sgur/vim-editorconfig'
-Plug 'pangloss/vim-javascript'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'branch': 'master', 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 call plug#end()
 filetype plugin indent on
 
 " LanguageClient Settings
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['tcp://localhost:7658']
-    \ }
+			\ 'ruby': ['tcp://localhost:7658']
+			\ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -61,9 +64,9 @@ autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
 
 " Search with ripgrep
 let g:rg_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!{.git,node_modules,vendor}/*" '
+			\ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+			\ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+			\ -g "!{.git,node_modules,vendor}/*" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 " Tabs
@@ -105,7 +108,7 @@ set number
 syntax on
 set termguicolors
 set background=dark
-colorscheme focuspoint "hybrid_material
+colorscheme hybrid_material
 hi VertSplit ctermbg=235 ctermfg=235
 set go-=L " remove left scrollbar
 set go-=r " remove right scrollbar
@@ -137,12 +140,15 @@ hi GitGutterChangeDelete guibg=#222222 guifg=#0087af
 
 set laststatus=2
 
+"Indentation
+let g:indentLine_color_term = 239
+
 " Rainbow parenthesis always on!
 if exists(':RainbowParenthesesToggle')
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
+	autocmd VimEnter * RainbowParenthesesToggle
+	autocmd Syntax * RainbowParenthesesLoadRound
+	autocmd Syntax * RainbowParenthesesLoadSquare
+	autocmd Syntax * RainbowParenthesesLoadBraces
 endif
 "Auto Correct
 iabbrev teh the
@@ -152,9 +158,11 @@ iabbrev Authoirty Authority
 iabbrev distrcit district
 iabbrev distrcits districts
 
-let g:loaded_python3_provider=1
+"let g:loaded_python3_provider=1
 let NERDTreeQuitOnOpen=1
 nnoremap <C-p> :Files<Cr>
+
+let g:deoplete#enable_at_startup = 1
 
 " CtrlP -> directories to ignore when fuzzy finding
 "let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
@@ -178,5 +186,30 @@ sunmap e
 noremap  <silent> <C-S>              :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
+"
+"Manage tabs
+map <C-t><up> :tabr<cr>
+map <C-t><down> :tabl<cr>
+map <C-t><left> :tabp<cr>
+map <C-t><right> :tabn<cr>
+
+map <C-j> :cn<CR>
+map <C-k> :cp<CR>
 
 set nowrap
+nmap <leader>cs :let @*=expand("%")<CR>
+nmap <leader>tn :tabnew
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint'],
+\   'vue': ['eslint']
+\}
+
+let g:ale_fixers = {
+\    'javascript': ['eslint'],
+\    'typescript': ['prettier'],
+\    'vue': ['eslint'],
+\    'scss': ['prettier'],
+\    'html': ['prettier']
+\}
+
