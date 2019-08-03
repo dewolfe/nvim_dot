@@ -192,13 +192,12 @@ map <C-t><up> :tabr<cr>
 map <C-t><down> :tabl<cr>
 map <C-t><left> :tabp<cr>
 map <C-t><right> :tabn<cr>
-
+nmap <leader>tn :tabnew<CR>
 map <C-j> :cn<CR>
 map <C-k> :cp<CR>
 
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
-nmap <leader>tn :tabnew
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['tsserver', 'tslint'],
