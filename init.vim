@@ -1,5 +1,6 @@
-call plug#begin()
 " Neovim-only, use in true color terminal
+call plug#begin()
+Plug  'rhysd/vim-grammarous'
 Plug 'flazz/vim-colorschemes'
 Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
@@ -43,12 +44,11 @@ Plug 'fatih/vim-go', { 'branch': 'master', 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 call plug#end()
 filetype plugin indent on
-
 " LanguageClient Settings
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
@@ -101,7 +101,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Editor features
 set cursorline
-set number
+set rnu
 
 
 "Visuals
@@ -172,6 +172,7 @@ let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " Maps
 map <leader>' :NERDTreeToggle<cr>
+map <leader>nf :NERDTreeFind<cr>
 nmap <C-o> :FZF<CR>
 " Camel Case Motion (for dealing with programming code)
 map <silent> w <Plug>CamelCaseMotion_w
@@ -211,4 +212,3 @@ let g:ale_fixers = {
 \    'scss': ['prettier'],
 \    'html': ['prettier']
 \}
-
