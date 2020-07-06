@@ -1,12 +1,14 @@
 " Neovim-only, use in true color terminal
 call plug#begin()
-Plug  'rhysd/vim-grammarous'
+Plug 'zxqfl/tabnine-vim'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'rhysd/vim-grammarous'
 Plug 'flazz/vim-colorschemes'
 Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 Plug 'Chiel92/vim-autoformat'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
@@ -17,9 +19,9 @@ Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
 Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
-			\ 'do': 'bash install.sh',
-			\ }
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 Plug 'vim-ruby/vim-ruby'
 Plug 'ianks/vim-tsx'
 Plug 'tpope/vim-rails'
@@ -36,11 +38,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'w0rp/ale'
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dense-analysis/ale'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
 Plug 'sgur/vim-editorconfig'
-Plug 'fatih/vim-go', { 'branch': 'master', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go' ", { 'branch': 'master', 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -52,8 +55,8 @@ filetype plugin indent on
 " LanguageClient Settings
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
-			\ 'ruby': ['tcp://localhost:7658']
-			\ }
+      \ 'ruby': ['tcp://localhost:7658']
+      \ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -64,11 +67,18 @@ autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
 
 " Search with ripgrep
 let g:rg_command = '
-			\ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-			\ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-			\ -g "!{.git,node_modules,vendor}/*" '
+      \ rg --column --line-number --no-heading --fixed-strings --no-ignore --hidden --follow --color "always"
+      \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+      \ -g "!{.git,node_modules,vendor}/*"
+      \ '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+" FZF key bindings
+nnoremap <C-f> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-i': 'split',
+  \ 'ctrl-v': 'vsplit' }
 " Tabs
 set tabstop=2
 set shiftwidth=2
@@ -117,6 +127,7 @@ set go-=r " remove right scrollbar
 " Visuals: ALE
 highlight ALEWarningSign guifg=#f0f166
 highlight ALEErrorSign guifg=#ff4d47
+let g:ale_set_highlights = 0
 let g:ale_sign_error = '✖︎'
 let g:ale_sign_warning = '⚠'
 
@@ -130,6 +141,7 @@ let g:airline#extensions#hunks#enabled = 0 " no room :(
 let g:airline_section_y = '' " no room :'(
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 0 " just nevever found it that useful :/
+let g:airline#extensions#ale#enabled = 1
 
 " Visuals: gitgutter
 hi SignColumn guibg=#222222
@@ -145,10 +157,10 @@ let g:indentLine_color_term = 239
 
 " Rainbow parenthesis always on!
 if exists(':RainbowParenthesesToggle')
-	autocmd VimEnter * RainbowParenthesesToggle
-	autocmd Syntax * RainbowParenthesesLoadRound
-	autocmd Syntax * RainbowParenthesesLoadSquare
-	autocmd Syntax * RainbowParenthesesLoadBraces
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
 endif
 "Auto Correct
 iabbrev teh the
@@ -161,19 +173,18 @@ iabbrev distrcits districts
 "let g:loaded_python3_provider=1
 let NERDTreeQuitOnOpen=1
 nnoremap <C-p> :Files<Cr>
-
 let g:deoplete#enable_at_startup = 1
 
-" CtrlP -> directories to ignore when fuzzy finding
-"let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+"Ctl-P setting
+"let g:ctrlp_max_files=80000
+"let g:ctrlp_max_depth=10
 
 " Ack (uses Ag behind the scenes)
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " Maps
 map <leader>' :NERDTreeToggle<cr>
 map <leader>nf :NERDTreeFind<cr>
-nmap <C-o> :FZF<CR>
+
 " Camel Case Motion (for dealing with programming code)
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
@@ -187,7 +198,7 @@ sunmap e
 noremap  <silent> <C-S>              :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
-"
+
 "Manage tabs
 map <C-t><up> :tabr<cr>
 map <C-t><down> :tabl<cr>
@@ -200,15 +211,15 @@ map <C-k> :cp<CR>
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['tsserver', 'tslint'],
-\   'vue': ['eslint']
-\}
+      \   'javascript': ['eslint'],
+      \   'typescript': ['tsserver', 'tslint'],
+      \   'vue': ['eslint'],
+      \}
 
 let g:ale_fixers = {
-\    'javascript': ['eslint'],
-\    'typescript': ['prettier'],
-\    'vue': ['eslint'],
-\    'scss': ['prettier'],
-\    'html': ['prettier']
-\}
+      \    'javascript': ['eslint'],
+      \    'typescript': ['prettier'],
+      \    'vue': ['eslint'],
+      \    'scss': ['prettier'],
+      \    'html': ['prettier'],
+      \}
