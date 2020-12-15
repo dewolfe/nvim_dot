@@ -43,7 +43,7 @@ Plug 'dense-analysis/ale'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
 Plug 'sgur/vim-editorconfig'
-Plug 'fatih/vim-go' ", { 'branch': 'master', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go' , {'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -53,6 +53,8 @@ Plug 'mxw/vim-jsx'
 call plug#end()
 filetype plugin indent on
 " LanguageClient Settings
+let g:python_host_prog = '/Users/dominicdewolfe/.pyenv/shims/python2'
+let g:python3_host_prog = '/Users/dominicdewolfe/.pyenv/shims/python3'
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
       \ 'ruby': ['tcp://localhost:7658']
@@ -183,13 +185,22 @@ let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " Maps
 map <leader>' :NERDTreeToggle<cr>
+map <leader>af :Autoformat<CR>
 map <leader>nf :NERDTreeFind<cr>
+map <leader>vs :vsp
+"Manage tabs
+map <C-t><up> :tabr<cr>
+map <C-t><down> :tabl<cr>
+map <C-t><left> :tabp<cr>
+map <C-t><right> :tabn<cr>
+nmap <leader>tn :tabnew<CR>
+map <C-j> :cn<CR>
+map <C-k> :cp<CR>
 
-" Camel Case Motion (for dealing with programming code)
+"" Camel Case Motion (for dealing with programming code)
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
 map <silent> e <Plug>CamelCaseMotion_e
-map <leader>af :Autoformat<CR>
 
 sunmap w
 sunmap b
@@ -199,14 +210,6 @@ noremap  <silent> <C-S>              :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
 
-"Manage tabs
-map <C-t><up> :tabr<cr>
-map <C-t><down> :tabl<cr>
-map <C-t><left> :tabp<cr>
-map <C-t><right> :tabn<cr>
-nmap <leader>tn :tabnew<CR>
-map <C-j> :cn<CR>
-map <C-k> :cp<CR>
 
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
