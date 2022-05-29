@@ -1,6 +1,5 @@
 " Neovim-only, use in true color terminal
 call plug#begin()
-Plug 'zxqfl/tabnine-vim'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'rhysd/vim-grammarous'
 Plug 'flazz/vim-colorschemes'
@@ -8,7 +7,6 @@ Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
-"Plug 'ludovicchabant/vim-gutentags'
 Plug 'Chiel92/vim-autoformat'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
@@ -18,10 +16,6 @@ Plug 'danchoi/ri.vim'
 Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
 Plug 'vim-ruby/vim-ruby'
 Plug 'ianks/vim-tsx'
 Plug 'tpope/vim-rails'
@@ -31,6 +25,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
+Plug 'github/copilot.vim'
 
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
@@ -39,7 +34,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
 Plug 'sgur/vim-editorconfig'
@@ -47,25 +42,10 @@ Plug 'fatih/vim-go' , {'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 call plug#end()
 filetype plugin indent on
-" LanguageClient Settings
-let g:python_host_prog = '/Users/dominicdewolfe/.pyenv/shims/python2'
-let g:python3_host_prog = '/Users/dominicdewolfe/.pyenv/shims/python3'
-let g:LanguageClient_autoStop = 0
-let g:LanguageClient_serverCommands = {
-      \ 'ruby': ['tcp://localhost:7658']
-      \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
 
 " Search with ripgrep
 let g:rg_command = '
@@ -124,14 +104,6 @@ colorscheme hybrid_material
 hi VertSplit ctermbg=235 ctermfg=235
 set go-=L " remove left scrollbar
 set go-=r " remove right scrollbar
-
-
-" Visuals: ALE
-highlight ALEWarningSign guifg=#f0f166
-highlight ALEErrorSign guifg=#ff4d47
-let g:ale_set_highlights = 0
-let g:ale_sign_error = '✖︎'
-let g:ale_sign_warning = '⚠'
 
 " Visuals: airline
 let g:airline_left_sep = ''
@@ -213,16 +185,3 @@ inoremap <silent> <C-S>         <C-O>:update<CR>
 
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
-let g:ale_linters = {
-      \   'javascript': ['eslint'],
-      \   'typescript': ['tsserver', 'tslint'],
-      \   'vue': ['eslint'],
-      \}
-
-let g:ale_fixers = {
-      \    'javascript': ['eslint'],
-      \    'typescript': ['prettier'],
-      \    'vue': ['eslint'],
-      \    'scss': ['prettier'],
-      \    'html': ['prettier'],
-      \}
