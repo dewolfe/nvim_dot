@@ -1,4 +1,5 @@
 " Neovim-only, use in true color terminal
+
 call plug#begin()
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'rhysd/vim-grammarous'
@@ -7,7 +8,7 @@ Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
-Plug 'Chiel92/vim-autoformat'
+Plug 'vim-autoformat/vim-autoformat'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
@@ -16,7 +17,7 @@ Plug 'danchoi/ri.vim'
 Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
-Plug 'vim-ruby/vim-ruby'
+"Plug 'vim-ruby/vim-ruby'
 Plug 'ianks/vim-tsx'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-unimpaired'
@@ -34,16 +35,17 @@ Plug 'vim-airline/vim-airline-themes'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
 Plug 'sgur/vim-editorconfig'
-Plug 'fatih/vim-go' , {'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'ruanyl/vim-gh-line'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 call plug#end()
 filetype plugin indent on
 
@@ -79,7 +81,8 @@ set autoindent
 set smartindent
 
 "use system clipboard
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
+
 
 " Editorconfig
 let g:editorconfig_blacklist = {'filetype': ['git.*']}
@@ -114,8 +117,6 @@ let g:airline_theme = "tender"
 let g:airline#extensions#hunks#enabled = 0 " no room :(
 let g:airline_section_y = '' " no room :'(
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#branch#enabled = 0 " just nevever found it that useful :/
-let g:airline#extensions#ale#enabled = 1
 
 " Visuals: gitgutter
 hi SignColumn guibg=#222222
@@ -144,10 +145,19 @@ iabbrev Authoirty Authority
 iabbrev distrcit district
 iabbrev distrcits districts
 
-"let g:loaded_python3_provider=1
+" Enable ALE
+let g:ale_enable = 1
+
+" Set linters
+let g:ale_linters = { 'python': ['flake8']}
+
+" Set linting to occur on file save and text change
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'always'
+" let g:loaded_python3_provider=1
+
 let NERDTreeQuitOnOpen=1
 nnoremap <C-p> :Files<Cr>
-let g:deoplete#enable_at_startup = 1
 
 "Ctl-P setting
 "let g:ctrlp_max_files=80000
