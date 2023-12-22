@@ -1,6 +1,9 @@
 " Neovim-only, use in true color terminal
 
 call plug#begin()
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'rhysd/vim-grammarous'
 Plug 'flazz/vim-colorschemes'
@@ -32,9 +35,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'jacoborus/tender'
 Plug 'dag/vim-fish'
@@ -45,8 +47,11 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'jackMort/ChatGPT.nvim'
 
 call plug#end()
+
+
 filetype plugin indent on
 
 " Search with ripgrep
@@ -154,7 +159,6 @@ let g:ale_linters = { 'python': ['flake8']}
 " Set linting to occur on file save and text change
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'always'
-" let g:loaded_python3_provider=1
 
 let NERDTreeQuitOnOpen=1
 nnoremap <C-p> :Files<Cr>
@@ -195,3 +199,6 @@ inoremap <silent> <C-S>         <C-O>:update<CR>
 
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
+lua << EOF
+require("chatgpt").setup()
+EOF
