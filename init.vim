@@ -20,7 +20,9 @@ Plug 'danchoi/ri.vim'
 Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
-"Plug 'vim-ruby/vim-ruby'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'elixir-tools/elixir-tools.nvim'
+Plug 'vim-ruby/vim-ruby'
 Plug 'ianks/vim-tsx'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-unimpaired'
@@ -30,6 +32,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'github/copilot.vim'
+"Plug 'neovim/nvim-lspconfig'
 
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
@@ -102,6 +105,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " Editor features
 set cursorline
 set rnu
+set nu
 
 
 "Visuals
@@ -154,7 +158,12 @@ iabbrev distrcits districts
 let g:ale_enable = 1
 
 " Set linters
-let g:ale_linters = { 'python': ['flake8']}
+let g:ale_linters = {
+      \  'python': ['flake8'],}
+
+let g:ale_fixers = {
+      \ 'elixir': ['credo'],}
+
 
 " Set linting to occur on file save and text change
 let g:ale_lint_on_save = 1
@@ -201,4 +210,50 @@ set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
 lua << EOF
 require("chatgpt").setup()
+require("elixir").setup({
+  nextls = {enable = true},
+  credo = {enable = true},
+  elixirls = {enable = false},
+})
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query","elixir","ruby"},
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (or "all")
+  ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 EOF
