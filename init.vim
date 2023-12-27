@@ -146,6 +146,7 @@ if exists(':RainbowParenthesesToggle')
   autocmd Syntax * RainbowParenthesesLoadSquare
   autocmd Syntax * RainbowParenthesesLoadBraces
 endif
+
 "Auto Correct
 iabbrev teh the
 iabbrev het the
@@ -159,7 +160,8 @@ let g:ale_enable = 1
 
 " Set linters
 let g:ale_linters = {
-      \  'python': ['flake8'],}
+      \  'python': ['flake8'],
+      \  'elixir': ['credo'],}
 
 let g:ale_fixers = {
       \ 'elixir': ['credo'],}
@@ -172,9 +174,6 @@ let g:ale_lint_on_text_changed = 'always'
 let NERDTreeQuitOnOpen=1
 nnoremap <C-p> :Files<Cr>
 
-"Ctl-P setting
-"let g:ctrlp_max_files=80000
-"let g:ctrlp_max_depth=10
 
 " Ack (uses Ag behind the scenes)
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -183,6 +182,7 @@ map <leader>' :NERDTreeToggle<cr>
 map <leader>af :Autoformat<CR>
 map <leader>nf :NERDTreeFind<cr>
 map <leader>vs :vsp
+
 "Manage tabs
 map <C-t><up> :tabr<cr>
 map <C-t><down> :tabl<cr>
@@ -208,6 +208,8 @@ inoremap <silent> <C-S>         <C-O>:update<CR>
 
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
+
+" Lua script
 lua << EOF
 require("chatgpt").setup()
 require("elixir").setup({
