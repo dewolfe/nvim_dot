@@ -2,10 +2,9 @@
 
 call plug#begin()
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'rhysd/vim-grammarous'
 Plug 'flazz/vim-colorschemes'
 Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
@@ -13,16 +12,13 @@ Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
 Plug 'vim-autoformat/vim-autoformat'
 Plug 'ervandew/supertab'
-Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'janko-m/vim-test'
 Plug 'danchoi/ri.vim'
 Plug 'xolox/vim-misc'
 Plug 'qpkorr/vim-bufkill'
 Plug 'bkad/CamelCaseMotion'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'elixir-tools/elixir-tools.nvim'
-Plug 'vim-ruby/vim-ruby'
 Plug 'ianks/vim-tsx'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-unimpaired'
@@ -32,8 +28,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'github/copilot.vim'
-"Plug 'neovim/nvim-lspconfig'
-
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -56,6 +50,13 @@ call plug#end()
 
 
 filetype plugin indent on
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 
 " Search with ripgrep
 let g:rg_command = '
