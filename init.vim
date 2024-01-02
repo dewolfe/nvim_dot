@@ -1,10 +1,10 @@
 " Neovim-only, use in true color terminal
 
 call plug#begin()
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'MunifTanjim/nui.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'flazz/vim-colorschemes'
 Plug 'ap/vim-css-color'
 Plug 'groenewege/vim-less'
@@ -56,6 +56,8 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ft :lua require'telescope.builtin'.treesitter{}<cr>
+
 
 
 " Search with ripgrep
@@ -90,7 +92,7 @@ set autoindent
 set smartindent
 
 "use system clipboard
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 
 
 " Editorconfig
@@ -205,6 +207,9 @@ sunmap e
 noremap  <silent> <C-S>              :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
+noremap  <leader>co :Copilot panel<CR>
+noremap  <leader>c :ChatGPT<CR>
+noremap  <leader>ca :ChatGPTActAs<CR>
 
 
 set nowrap
