@@ -1,6 +1,7 @@
 " Neovim-only, use in true color terminal
 
 call plug#begin()
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -188,6 +189,12 @@ map <leader>af :Autoformat<CR>
 map <leader>nf :NERDTreeFind<cr>
 map <leader>vs :vsp
 
+"Buffers
+" Move to the next buffer
+nnoremap <silent> <Tab> :bnext<CR>
+" Move to the previous buffer
+nnoremap <silent> <S-Tab> :bprevious<CR>
+
 "Manage tabs
 map <C-t><up> :tabr<cr>
 map <C-t><down> :tabl<cr>
@@ -217,16 +224,20 @@ noremap  <leader>ca :ChatGPTActAs<CR>
 set nowrap
 nmap <leader>cs :let @*=expand("%")<CR>
 
+
+
+let g:python3_host_prog = '/home/dewolfe/.asdf/installs/python/3.12.3/bin/python'
+
 " Lua script
 lua << EOF
 require("chatgpt").setup()
 require("elixir").setup({
-  nextls = {enable = true},
+  nextls = {enable = false},
   credo = {enable = true},
-  elixirls = {enable = false},
+  elixirls = {enable = true},
 })
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  -- A list ofuparser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query","elixir","ruby"},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -266,4 +277,17 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+local nvim_lsp = require('lspconfig')
+
+-- Attach LSP mappings when the LSP client attaches to a buffer
+local on_attach = function(client, bufnr)
+  local opts = { noremap=true, silent=true, buffer=bufnr }
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+end
+
+-- Example: Configure the language server for Python
 EOF
+
