@@ -48,6 +48,23 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+  { "sbdchd/neoformat",
+    config = function ()
+      vim.g.neoformat_enabled_ruby = { 'rufo' }
+      vim.g.neoformat_ruby_rufo = {
+        exe = 'rufo',
+        args = {},
+        replace = 1,
+        valid_exit_codes = {0, 3},
+      }
+      vim.g.neoformat_enabled_elixir = { 'mix_format' }
+      vim.g.neoformat_elixir_mix_format = {
+        exe = 'mix',
+        args = {'format', '-'},
+        stdin = 1,
+      }
+    end
+  },
   { "catlee/pull_diags.nvim", event = "LspAttach", opts = {} },
 
   {
@@ -413,3 +430,4 @@ vim.keymap.set("n", "<leader>q", ":bd<cr>", { desc = "Close buffer" })
 vim.keymap.set("n", "<leader>rm", ":!rm %", { desc = "Remove file" })
 vim.keymap.set("n", "<leader>vv", ":vnew<cr>", { desc = "New vertical split" })
 vim.keymap.set("v", "<leader>yy", '"+y', { desc = "Copy to clipboard" })
+vim.keymap.set("n", "<leader>af", ":Neoformat<cr>", { desc = "Format current buffer"})
