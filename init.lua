@@ -208,7 +208,14 @@ local plugins = {
 
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
   "wsdjeg/vim-fetch",
-
+  {
+    'stevearc/oil.nvim',
+     opts = {},
+     dependencies = { "nvim-tree/nvim-web-devicons" },
+     config = function()
+       require("oil").setup()
+     end
+  },
   {
     "zbirenbaum/copilot-cmp",
     event = "InsertEnter",
@@ -401,6 +408,7 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
 vim.keymap.set("n", "<Tab>", ":bnext<cr>", {desc = "Next buffer"})
 vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", {desc= "Previous buffer"})
+vim.keymap.set("n", "<leader>'", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Keymaps: Terminal
 vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h")
@@ -431,3 +439,5 @@ vim.keymap.set("n", "<leader>rm", ":!rm %", { desc = "Remove file" })
 vim.keymap.set("n", "<leader>vv", ":vnew<cr>", { desc = "New vertical split" })
 vim.keymap.set("v", "<leader>yy", '"+y', { desc = "Copy to clipboard" })
 vim.keymap.set("n", "<leader>af", ":Neoformat<cr>", { desc = "Format current buffer"})
+vim.keymap.set("n", "<leader>bp", "binding.pry<cr>", { noremap = true, silent = true, desc = "Add a pry binding" })
+
