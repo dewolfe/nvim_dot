@@ -115,6 +115,7 @@ local plugins = {
       { "<leader>ghs", ":Gitsigns stage_hunk<cr>", desc = "Git stage hunk" },
       { "<leader>ghu", ":Gitsigns undo_stage_hunk<cr>", desc = "Git undo stage hunk" },
       { "<leader>ghr", ":Gitsigns reset_hunk<cr>", desc = "Git reset hunk" },
+      { "<leader>ghb", ":Gitsigns toggle_current_line_blame<cr>", desc = "Toggle line blame" },
       { "]h", ":Gitsigns next_hunk<cr>", desc = "Gitsigns: Go to next hunk" },
       { "[h", ":Gitsigns prev_hunk<cr>", desc = "Gitsigns: Go to prev hunk" },
       { "ah", ":<C-U>Gitsigns select_hunk<CR>", mode = {"o", "x"}, desc = "Text object for git hunks" },
@@ -440,5 +441,5 @@ vim.keymap.set("n", "<leader>rm", ":!rm %", { desc = "Remove file" })
 vim.keymap.set("n", "<leader>vv", ":vnew<cr>", { desc = "New vertical split" })
 vim.keymap.set("v", "<leader>yy", '"+y', { desc = "Copy to clipboard" })
 vim.keymap.set("n", "<leader>af", ":Neoformat<cr>", { desc = "Format current buffer"})
-vim.keymap.set("n", "<leader>bp", "binding.pry<cr>", { noremap = true, silent = true, desc = "Add a pry binding" })
+vim.keymap.set("i", "<leader>bp", "binding.pry<cr>", { noremap = true, silent = true, desc = "Add a pry binding" })
 
