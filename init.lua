@@ -95,7 +95,7 @@ local plugins = {
 
   {
     "kassio/neoterm",
-    config = function() vim.g.neoterm_default_mod = "vertical" end,
+    config = function() vim.g.neoterm_default_mod = "horizontal" end,
     lazy = false,
     keys = {
       { "<leader>tc", ":Tclear<cr>", desc = "Clear terminal" },
@@ -173,6 +173,7 @@ local plugins = {
   { "tpope/vim-bundler", ft = { "ruby", "eruby" } },
   { "tpope/vim-commentary", event = "VeryLazy" },
   { "tpope/vim-endwise", ft = { "ruby", "eruby" } },
+  { "tpope/vim-fugitive"},
 
   {
     "tpope/vim-fugitive",
