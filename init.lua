@@ -394,6 +394,21 @@ function RenameFile()
   end
 end
 
+-- Create a function to prompt for new file name and create it in the same directory
+function CreateNewFileInDir()
+  local dir = vim.fn.expand('%:p:h')
+  local newfile = vim.fn.input('New file name: ', dir .. '/')
+  if newfile ~= "" then
+    vim.cmd('edit ' .. newfile)
+  end
+end
+
+-- Create a custom command to create a new file in the same directory as the current buffer
+vim.cmd('command! -nargs=1 NewFile :lua CreateNewFileInDir()')
+
+-- Map <leader>nf to call the function
+vim.api.nvim_set_keymap('n', '<leader>nf', ':lua CreateNewFileInDir()<CR>', { noremap = true, silent = true })
+
 vim.api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
   desc = "Automatically resize splits when window is resized",
