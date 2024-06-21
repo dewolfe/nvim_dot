@@ -1,5 +1,4 @@
 -- Setting options
-
 vim.opt.autoindent = true             -- Indent: Copy indent from current line when starting new line
 vim.opt.clipboard = "unnamedplus"     -- Sync clipboard between OS and Neovim
 vim.opt.colorcolumn = "120"           -- Show vertical bar to indicate 120 chars
@@ -48,6 +47,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+
   { "sbdchd/neoformat",
     config = function ()
       vim.g.neoformat_enabled_ruby = { 'rufo' }
@@ -62,6 +62,12 @@ local plugins = {
         exe = 'mix',
         args = {'format', '-'},
         stdin = 1,
+      }
+      vim.g.neoformat_enabled_lua = { 'lua' }
+      vim.g.neoformat_lua = {
+        exe = 'lua-format',
+        args = {'-i'},
+        replace = 1,
       }
     end
   },
@@ -102,6 +108,16 @@ local plugins = {
       { "<leader>to", ":Ttoggle<cr>", desc = "Toggle terminal" },
       { "<leader>tl", ":w<cr>:T dev test --include-branch-commits<cr>", desc = "Test local changes" },
       { "<leader>ty", ":w<cr>:T srb typecheck<cr>", desc = "Sorbet typecheck" },
+    },
+  },
+
+  { 
+    "ruifm/gitlinker.nvim",
+    config = function()
+      require("gitlinker").setup()
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
     },
   },
 
@@ -246,7 +262,15 @@ require("lazy").setup(plugins)
 
 local servers = {
   ruby_lsp = {},
-  sorbet = {},
+  sorbet = {
+  cmd = { "bundle", "exec", "srb", "tc", "--lsp", "--disable-watchman" },
+  root_dir = get_sorbet_root_dir,
+  settings = {
+    sorbet = {
+      lintMode = "true",
+    }
+  },
+  },
   elixirls = {},
   lua_ls = {
     Lua = {
