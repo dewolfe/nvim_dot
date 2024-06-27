@@ -437,7 +437,19 @@ vim.api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
   desc = "Automatically resize splits when window is resized",
 })
+-- Copry relative path to clipboard
+function CopyRelativePathToClipboard()
+    -- Get the relative path of the current file
+    local relative_path = vim.fn.expand('%')
 
+    -- Copy the relative path to the clipboard
+    vim.fn.setreg('+', relative_path)
+
+    -- Print a message to confirm
+    print('Copied to clipboard: ' .. relative_path)
+end
+vim.api.nvim_set_keymap('n', '<leader>cp', ':lua CopyRelativePathToClipboard()<CR>', { noremap = true, silent = true })
+--
 -- Commonly mistyped commands
 vim.api.nvim_create_user_command("Q", "q", {})
 vim.api.nvim_create_user_command("Qa", "qa", {})
