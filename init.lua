@@ -450,7 +450,8 @@ function CopyRelativePathToClipboard()
     print('Copied to clipboard: ' .. relative_path)
 end
 vim.api.nvim_set_keymap('n', '<leader>cp', ':lua CopyRelativePathToClipboard()<CR>', { noremap = true, silent = true })
---
+-- Map <leader>o to close all other windows and maximize the current one
+vim.api.nvim_set_keymap('n', '<leader>o', ':only<CR>', { noremap = true, silent = true })
 -- Commonly mistyped commands
 vim.api.nvim_create_user_command("Q", "q", {})
 vim.api.nvim_create_user_command("Qa", "qa", {})
