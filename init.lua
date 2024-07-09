@@ -16,7 +16,8 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.updatetime = 200              -- Reduce updatetime
 vim.opt.wildmode = "list:full"        -- Completion mode: list all matches
-
+vim.o.spell = true
+--
 -- Line numbers: Show current line, but use relative numbers elsewhere
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -48,27 +49,6 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
 
-  {
-    'Pocco81/auto-save.nvim',
-    config = function()
-      require("auto-save").setup {
-        -- Your configuration options here
-        enabled = true, -- start auto-save when the plugin is loaded
-        execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
-        events = {"InsertLeave", "TextChanged"}, -- events that trigger auto-save
-        conditions = {
-          exists = true,
-          filename_is_not = {},
-          filetype_is_not = {},
-          modifiable = true
-        },
-        write_all_buffers = false, -- write all buffers or just the current one
-        on_off_commands = true, -- create commands `:AutoSaveToggle`, `:AutoSaveEnable`, `:AutoSaveDisable`
-        clean_command_line_interval = 0, -- interval to clear the command line message
-        debounce_delay = 135 -- delay after which the save is triggered
-      }
-    end
-  },
   { "sbdchd/neoformat",
     config = function ()
       vim.g.neoformat_enabled_ruby = { 'rufo' }
