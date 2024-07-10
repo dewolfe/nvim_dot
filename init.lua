@@ -482,6 +482,7 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,{ desc = "Go to implementation" })
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = "Go to references" })
 vim.keymap.set('n', 'K',  vim.lsp.buf.hover, { desc = "Hover" })
+vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>',{ noremap=true, silent=true })
 -- Keymaps: Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
