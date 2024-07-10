@@ -138,7 +138,9 @@ local plugins = {
   {
     "lewis6991/gitsigns.nvim",
     config = function()
-      require("gitsigns").setup()
+      require("gitsigns").setup {
+        current_line_blame = true
+      }
     end,
     event = { "CursorHold", "CursorHoldI" },
     keys = {
@@ -203,8 +205,6 @@ local plugins = {
   { "tpope/vim-bundler", ft = { "ruby", "eruby" } },
   { "tpope/vim-commentary", event = "VeryLazy" },
   { "tpope/vim-endwise", ft = { "ruby", "eruby" } },
-  { "tpope/vim-fugitive"},
-
   {
     "tpope/vim-fugitive",
     dependencies = { "tpope/vim-rhubarb" },
