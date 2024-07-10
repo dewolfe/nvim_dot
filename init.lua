@@ -49,6 +49,19 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
 
+  {
+    "9seconds/repolink.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    cmd = {
+      "RepoLink"
+    },
+    opts = {
+      -- your configuration goes here.
+      -- keep empty object if you are fine with defaults
+    }
+  },
   { "sbdchd/neoformat",
     config = function ()
       vim.g.neoformat_enabled_ruby = { 'rufo' }
@@ -499,4 +512,8 @@ vim.keymap.set("n", "<leader>vv", ":vnew<cr>", { desc = "New vertical split" })
 vim.keymap.set("v", "<leader>yy", '"+y', { desc = "Copy to clipboard" })
 vim.keymap.set("n", "<leader>af", ":Neoformat<cr>", { desc = "Format current buffer"})
 vim.keymap.set("i", "<leader>bp", "binding.pry<cr>", { noremap = true, silent = true, desc = "Add a pry binding" })
+
+-- RepoLink
+vim.keymap.set("n", "<leader>rl", ":RepoLink!<cr>", { desc = "Open repo link" })
+vim.keymap.set("v", "<leader>rl", ":RepoLink!<cr>", { desc = "Open repo link" })
 
