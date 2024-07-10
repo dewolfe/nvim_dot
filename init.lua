@@ -431,6 +431,26 @@ function RenameFile()
     vim.cmd("redraw!")
   end
 end
+-- Function to open the PR that introduced the current line
+function _G.open_pr_for_current_line()
+  local file = vim.fn.expand('%')
+  local line = vim.fn.line('.')
+
+  local cmd = string.format('git blame -L %d,%d --porcelain %s | grep "^commit " | cut -d " " -f 2', line, line, file)
+  local handle = io.popen(cmd)
+  local commit_hash = handle:read("*a"):gsub("%s+", "")
+  handle:close()
+
+  if commit_hash == "" then
+    print("No commit found for the current line.")
+    return
+  end
+
+  -- Open the PR on GitHub using the GitHub CLI
+  local pr_cmd = string.format('gh pr view %s --web', commit_hash)
+  os.execute(pr_cmd)
+end
+vim.api.nvim_set_keymap('n', '<leader>op', ':lua open_pr_for_current_line()<CR>', { noremap = true, silent = true })
 
 -- Create a function to prompt for new file name and create it in the same directory
 function CreateNewFileInDir()
