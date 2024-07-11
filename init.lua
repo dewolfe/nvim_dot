@@ -135,24 +135,24 @@ local plugins = {
     },
   },
 
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup {
-        current_line_blame = true
-      }
-    end,
-    event = { "CursorHold", "CursorHoldI" },
-    keys = {
-      { "<leader>ghs", ":Gitsigns stage_hunk<cr>", desc = "Git stage hunk" },
-      { "<leader>ghu", ":Gitsigns undo_stage_hunk<cr>", desc = "Git undo stage hunk" },
-      { "<leader>ghr", ":Gitsigns reset_hunk<cr>", desc = "Git reset hunk" },
-      { "<leader>ghb", ":Gitsigns toggle_current_line_blame<cr>", desc = "Toggle line blame" },
-      { "]h", ":Gitsigns next_hunk<cr>", desc = "Gitsigns: Go to next hunk" },
-      { "[h", ":Gitsigns prev_hunk<cr>", desc = "Gitsigns: Go to prev hunk" },
-      { "ah", ":<C-U>Gitsigns select_hunk<CR>", mode = {"o", "x"}, desc = "Text object for git hunks" },
-    },
-  },
+--  {
+--    "lewis6991/gitsigns.nvim",
+--    config = function()
+--      require("gitsigns").setup {
+--        current_line_blame = true
+--      }
+--    end,
+--    event = { "CursorHold", "CursorHoldI" },
+--    keys = {
+--      { "<leader>ghs", ":Gitsigns stage_hunk<cr>", desc = "Git stage hunk" },
+--      { "<leader>ghu", ":Gitsigns undo_stage_hunk<cr>", desc = "Git undo stage hunk" },
+--      { "<leader>ghr", ":Gitsigns reset_hunk<cr>", desc = "Git reset hunk" },
+--      { "<leader>ghb", ":Gitsigns toggle_current_line_blame<cr>", desc = "Toggle line blame" },
+--      { "]h", ":Gitsigns next_hunk<cr>", desc = "Gitsigns: Go to next hunk" },
+--      { "[h", ":Gitsigns prev_hunk<cr>", desc = "Gitsigns: Go to prev hunk" },
+--      { "ah", ":<C-U>Gitsigns select_hunk<CR>", mode = {"o", "x"}, desc = "Text object for git hunks" },
+--    },
+--  },
 
   {
     "Mofiqul/vscode.nvim",
@@ -214,6 +214,7 @@ local plugins = {
       { "<leader>gs", ":Git<cr>", desc = "Git status" },
       { "<leader>gbr", ":GBrowse<cr>", desc = "Git browse", mode = { "n", "v" } },
     },
+    event = "VeryLazy",
   },
 
   {
@@ -436,12 +437,14 @@ function _G.open_pr_for_current_line()
   local file = vim.fn.expand('%')
   local line = vim.fn.line('.')
 
-  local cmd = string.format('git blame -L %d,%d --porcelain %s | grep "^commit " | cut -d " " -f 2', line, line, file)
+  local cmd = string.format('git blame -L %d,%d --porcelain %s', line, line, file)
   local handle = io.popen(cmd)
-  local commit_hash = handle:read("*a"):gsub("%s+", "")
+  local result = handle:read("*a")
   handle:close()
 
-  if commit_hash == "" then
+  -- Extract the commit hash from the result
+  local commit_hash = result:match("^%s*commit%s+(%w+)")
+  if not commit_hash or commit_hash == "" then
     print("No commit found for the current line.")
     return
   end
@@ -450,7 +453,8 @@ function _G.open_pr_for_current_line()
   local pr_cmd = string.format('gh pr view %s --web', commit_hash)
   os.execute(pr_cmd)
 end
-vim.api.nvim_set_keymap('n', '<leader>op', ':lua open_pr_for_current_line()<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>op', ':lua open_pr_for_current_line()<CR>', { noremap = true, silent = true })--
 
 -- Create a function to prompt for new file name and create it in the same directory
 function CreateNewFileInDir()
