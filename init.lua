@@ -549,6 +549,7 @@ vim.keymap.set("n", "<leader>vv", ":vnew<cr>", { desc = "New vertical split" })
 vim.keymap.set("v", "<leader>yy", '"+y', { desc = "Copy to clipboard" })
 vim.keymap.set("n", "<leader>af", ":Neoformat<cr>", { desc = "Format current buffer"})
 vim.keymap.set("i", "<leader>bp", "binding.pry<cr>", { noremap = true, silent = true, desc = "Add a pry binding" })
+vim.keymap.set("n", "<leader>ds", ":!/opt/dev/bin/dev style<cr>",{ desc = "Dev style" })
 
 -- RepoLink
 vim.keymap.set("n", "<leader>rl", ":RepoLink!<cr>", { desc = "Open repo link" })
