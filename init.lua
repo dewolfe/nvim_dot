@@ -135,24 +135,24 @@ local plugins = {
     },
   },
 
---  {
---    "lewis6991/gitsigns.nvim",
---    config = function()
---      require("gitsigns").setup {
---        current_line_blame = true
---      }
---    end,
---    event = { "CursorHold", "CursorHoldI" },
---    keys = {
---      { "<leader>ghs", ":Gitsigns stage_hunk<cr>", desc = "Git stage hunk" },
---      { "<leader>ghu", ":Gitsigns undo_stage_hunk<cr>", desc = "Git undo stage hunk" },
---      { "<leader>ghr", ":Gitsigns reset_hunk<cr>", desc = "Git reset hunk" },
---      { "<leader>ghb", ":Gitsigns toggle_current_line_blame<cr>", desc = "Toggle line blame" },
---      { "]h", ":Gitsigns next_hunk<cr>", desc = "Gitsigns: Go to next hunk" },
---      { "[h", ":Gitsigns prev_hunk<cr>", desc = "Gitsigns: Go to prev hunk" },
---      { "ah", ":<C-U>Gitsigns select_hunk<CR>", mode = {"o", "x"}, desc = "Text object for git hunks" },
---    },
---  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup {
+        current_line_blame = true
+      }
+    end,
+    event = { "CursorHold", "CursorHoldI" },
+    keys = {
+      { "<leader>ghs", ":Gitsigns stage_hunk<cr>", desc = "Git stage hunk" },
+      { "<leader>ghu", ":Gitsigns undo_stage_hunk<cr>", desc = "Git undo stage hunk" },
+      { "<leader>ghr", ":Gitsigns reset_hunk<cr>", desc = "Git reset hunk" },
+      { "<leader>ghb", ":Gitsigns toggle_current_line_blame<cr>", desc = "Toggle line blame" },
+      { "]h", ":Gitsigns next_hunk<cr>", desc = "Gitsigns: Go to next hunk" },
+      { "[h", ":Gitsigns prev_hunk<cr>", desc = "Gitsigns: Go to prev hunk" },
+      { "ah", ":<C-U>Gitsigns select_hunk<CR>", mode = {"o", "x"}, desc = "Text object for git hunks" },
+    },
+  },
 
   {
     "Mofiqul/vscode.nvim",
