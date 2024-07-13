@@ -48,7 +48,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
@@ -113,7 +112,7 @@ local plugins = {
   {
     "ibhagwan/fzf-lua",
     event = "VeryLazy",
-    opts = { files = { previewer = "max-perf" } },
+    opts = { files = { previewer = "bat" } },
     keys = {
       { "<leader>\\",  ":FzfLua files<cr>", desc = "Find files" },
       { "<leader>ca", ":FzfLua lsp_code_actions<cr>", desc = "Code actions" },
