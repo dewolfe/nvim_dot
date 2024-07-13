@@ -99,6 +99,7 @@ local plugins = {
   },
   { "catlee/pull_diags.nvim", event = "LspAttach", opts = {} },
 
+  {"honza/vim-snippets"},
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
