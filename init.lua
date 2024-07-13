@@ -48,6 +48,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+  {"SirVer/ultisnips"},
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
