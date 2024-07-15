@@ -58,7 +58,6 @@ local plugins = {
       vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'  -- Change jump backward trigger to Ctrl+K
     end
   },
-},
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
