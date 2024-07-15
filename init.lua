@@ -34,6 +34,7 @@ vim.g.mapleader = "\\"
 
 -- Install lazy.nvim if not installed already
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
   print("Installing lazy.nvim plugin manager")
   vim.fn.system({
@@ -48,7 +49,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  {"SirVer/ultisnips"},
+  {"SirVer/ultisnips",
+   dependencies = { 'honza/vim-snippets' },
+    config = function()
+      -- Set UltiSnips options here
+      vim.g.UltiSnipsExpandTrigger = '<C-l>'  -- Change expand trigger to Ctrl+L
+      vim.g.UltiSnipsJumpForwardTrigger = '<C-j>'  -- Change jump forward trigger to Ctrl+J
+      vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'  -- Change jump backward trigger to Ctrl+K
+    end
+  },
+},
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
